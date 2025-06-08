@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mana Cooker Pulao - Homely Pulao, Heartfully Made</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 50%, #1a1a1a 100%);
+            z-index: -2;
+        }
+
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 138, 101, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 193, 7, 0.1) 0%, transparent 50%);
+            animation: floatBg 20s ease-in-out infinite;
+        }
+
+        @keyframes floatBg {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-40%, -60%) rotate(180deg); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 193, 7, 0.6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            50% { transform: translateY(-100px) rotate(180deg); opacity: 1; }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .logo {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 40px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #fff, #f0f0f0);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+            position: relative;
+        }
+
+        @keyframes logoGlow {
+            0% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(255, 193, 7, 0); }
+            100% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 20px rgba(255, 193, 7, 0.1); }
+        }
+
+        .logo img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .main-title {
+            font-size: 4rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff8a65, #ffc107, #ff8a65);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: titleSlide 1s ease-out;
+            text-shadow: 0 0 30px rgba(255, 193, 7, 0.3);
+        }
+
+        @keyframes titleSlide {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #ffc107;
+            margin-bottom: 30px;
+            animation: subtitleFade 1.5s ease-out;
+            font-style: italic;
+        }
+
+        @keyframes subtitleFade {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 40px;
+            animation: taglineFade 2s ease-out;
+        }
+
+        @keyframes taglineFade {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: buttonsFade 2.5s ease-out;
+        }
+
+        @keyframes buttonsFade {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff8a65, #ffc107);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(255, 138, 101, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffc107;
+            border: 2px solid #ffc107;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 138, 101, 0.6);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, transparent, rgba(255, 193, 7, 0.05));
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #ff8a65, #ffc107);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 138, 101, 0.1), rgba(255, 193, 7, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(255, 193, 7, 0.2);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffc107;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-desc {
+            color: #ccc;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, rgba(255, 138, 101, 0.1), rgba(255, 193, 7, 0.1));
+        }
+
+        .contact-content {
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 193, 7, 0.1);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: #ffc107;
+            margin-bottom: 15px;
+        }
+
+        .contact-text {
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Simple Home Navigation -->
+<div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
+    <a href="pulao_house_landing.html" style="text-decoration: none; color: #ffc107; font-weight: bold; background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 20px; border: 1px solid #ffc107;">🏠 Home</a>
+</div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo">
+                <div style="width: 180px; height: 180px; border-radius: 50%; background: linear-gradient(135deg, #ff8a65, #ffc107); display: flex; align-items: center; justify-content: center;">
+                    <div style="font-size: 4rem; color: white;">🍚</div>
+                </div>
+            </div>
+            <h1 class="main-title">MANA COOKER PULAO</h1>
+            <p class="subtitle">Homely Pulao, Heartfully Made</p>
+            <p class="tagline">Experience the authentic taste of traditional home-cooked pulao with love in every grain</p>
+            <div class="cta-buttons">
+                <a href="pulao_menu_page.html" class="btn btn-primary">Order Now</a>
+                <a href="pulao_menu_page.html" class="btn btn-secondary">View Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title fade-in">Why Choose Mana Cooker?</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🏠</div>
+                    <h3 class="feature-title">Homely Taste</h3>
+                    <p class="feature-desc">Every dish is prepared with the same love and care as your mother's cooking, bringing you the authentic homely flavors you crave.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">❤️</div>
+                    <h3 class="feature-title">Made with Heart</h3>
+                    <p class="feature-desc">Our pulao is crafted heartfully with premium ingredients and traditional recipes passed down through generations.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🌟</div>
+                    <h3 class="feature-title">Fresh & Quality</h3>
+                    <p class="feature-desc">We use only the finest basmati rice, fresh vegetables, and aromatic spices to ensure every bite is perfect.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🚚</div>
+                    <h3 class="feature-title">Fast Delivery</h3>
+                    <p class="feature-desc">Hot, fresh pulao delivered to your doorstep within 30 minutes. Taste the warmth of home wherever you are.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Affordable Prices</h3>
+                    <p class="feature-desc">Enjoy restaurant-quality pulao at prices that won't break the bank. Great taste doesn't have to be expensive.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">👨‍🍳</div>
+                    <h3 class="feature-title">Expert Chefs</h3>
+                    <p class="feature-desc">Our experienced chefs bring years of culinary expertise to create the perfect balance of flavors in every dish.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="section-title fade-in">Get In Touch</h2>
+                <p class="tagline fade-in">Ready to taste the best pulao in town? Contact us now!</p>
+                <div class="contact-info">
+                    <div class="contact-item fade-in">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-text">
+                            <strong>Call Us</strong><br>
+                            +91 98765 43210<br>
+                            +91 87654 32109
+                        </div>
+                    </div>
+                    <div class="contact-item fade-in">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">
+                            <strong>Visit Us</strong><br>
+                            123 Food Street<br>
+                            Secunderabad, Telangana
+                        </div>
+                    </div>
+                    <div class="contact-item fade-in">
+                        <div class="contact-icon">🕒</div>
+                        <div class="contact-text">
+                            <strong>Open Hours</strong><br>
+                            Mon-Sun: 11:00 AM - 11:00 PM<br>
+                            Always Fresh & Hot
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Scroll animations
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            const windowHeight = window.innerHeight;
+
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        function smoothScroll() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            smoothScroll();
+            animateOnScroll();
+            
+            window.addEventListener('scroll', animateOnScroll);
+        });
+
+        // Add dynamic button interactions
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.05)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

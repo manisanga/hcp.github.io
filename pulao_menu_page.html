@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Mana Cooker Pulao</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 50%, #1a1a1a 100%);
+            z-index: -2;
+        }
+
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 70%, rgba(255, 138, 101, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(255, 193, 7, 0.08) 0%, transparent 50%);
+            animation: floatBg 25s ease-in-out infinite;
+        }
+
+        @keyframes floatBg {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-45%, -55%) rotate(180deg); }
+        }
+
+        /* Header */
+        .header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 193, 7, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-small {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff8a65, #ffc107);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff8a65, #ffc107);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .nav-links a:hover {
+            color: #ffc107;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .menu-hero {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, transparent, rgba(255, 193, 7, 0.05));
+        }
+
+        .menu-title {
+            font-size: 4rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff8a65, #ffc107, #ff8a65);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 10px rgba(255, 193, 7, 0.3)); }
+            100% { filter: drop-shadow(0 0 30px rgba(255, 193, 7, 0.6)); }
+        }
+
+        .menu-subtitle {
+            font-size: 1.3rem;
+            color: #ccc;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 193, 7, 0.3);
+            border-radius: 30px;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: linear-gradient(135deg, #ff8a65, #ffc107);
+            color: #fff;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 138, 101, 0.4);
+        }
+
+        /* Menu Container */
+        .menu-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .menu-section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #ffc107;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(135deg, #ff8a65, #ffc107);
+            border-radius: 2px;
+        }
+
+        .section-description {
+            color: #aaa;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 193, 7, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(255, 138, 101, 0.3);
+            border-color: rgba(255, 193, 7, 0.6);
+        }
+
+        .menu-item:hover::before {
+            left: 100%;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .item-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .item-type {
+            font-size: 0.9rem;
+            color: #ffc107;
+            background: rgba(255, 193, 7, 0.1);
+            padding: 4px 12px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .item-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffc107;
+            text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+        }
+
+        .item-description {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .item-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 193, 7, 0.2);
+        }
+
+        .item-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #ffc107;
+        }
+
+        .stars {
+            font-size: 1.2rem;
+        }
+
+        .order-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #ff8a65, #ffc107);
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .order-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 138, 101, 0.5);
+        }
+
+        /* Special Offers */
+        .special-offers {
+            background: linear-gradient(135deg, rgba(255, 138, 101, 0.1), rgba(255, 193, 7, 0.1));
+            border-radius: 25px;
+            padding: 50px 30px;
+            margin: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .special-offers::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 193, 7, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .offers-title {
+            font-size: 2.5rem;
+            color: #ffc107;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .offer-card {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid rgba(255, 193, 7, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .offer-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff8a65, #ffc107);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-title {
+                font-size: 2.5rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .category-filter {
+                gap: 10px;
+            }
+            
+            .filter-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating Elements */
+        .floating-spice {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Floating Spice Elements -->
+    <div class="floating-spice" style="top: 10%; left: 10%;">🌶️</div>
+    <div class="floating-spice" style="top: 20%; right: 15%; animation-delay: 2s;">🧄</div>
+    <div class="floating-spice" style="top: 60%; left: 5%; animation-delay: 4s;">🧅</div>
+    <div class="floating-spice" style="bottom: 20%; right: 10%; animation-delay: 6s;">🌿</div>
+
+    <!-- Header -->
+    <header class="header">
+    <nav class="nav">
+        <a href="pulao_house_landing.html" class="logo-small">
+            <div class="logo-icon">🍚</div>
+            <div class="logo-text">Mana Cooker Pulao</div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="pulao_house_landing.html">Home</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+    <!-- Menu Hero -->
+    <section class="menu-hero">
+        <h1 class="menu-title">Our Delicious Menu</h1>
+        <p class="menu-subtitle">Authentic flavors crafted with love, served with pride</p>
+        
+        <!-- Category Filter -->
+        <div class="category-filter">
+            <button class="filter-btn active" data-category="all">All Items</button>
+            <button class="filter-btn" data-category="pulao">Pulao Varieties</button>
+            <button class="filter-btn" data-category="biryani">Biryani</button>
+            <button class="filter-btn" data-category="sides">Sides & Extras</button>
+            <button class="filter-btn" data-category="beverages">Beverages</button>
+        </div>
+    </section>
+
+    <!-- Menu Container -->
+    <div class="menu-container">
+        <!-- Pulao Section -->
+        <section class="menu-section fade-in" data-category="pulao">
+            <div class="section-header">
+                <h2 class="section-title">Signature Pulao Collection</h2>
+                <p class="section-description">Our specialty pulaos made with premium basmati rice and authentic spices</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-name">Chicken Pulao</h3>
+                            <span class="item-type">Non-Veg</span>
+                        </div>
+                        <div class="item-price">₹180</div>
+                    </div>
+                    <p class="item-description">Tender chicken pieces cooked with fragrant basmati rice, aromatic spices, and fresh herbs. A perfect blend of flavors that melts in your mouth.</p>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.8</span>
+                        </div>
+                        <button class="order-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-name">Mutton Pulao</h3>
+                            <span class="item-type">Non-Veg</span>
+                        </div>
+                        <div class="item-price">₹220</div>
+                    </div>
+                    <p class="item-description">Succulent mutton pieces slow-cooked with premium basmati rice and traditional spices. A royal treat for meat lovers.</p>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.9</span>
+                        </div>
+                        <button class="order-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-name">Vegetable Pulao</h3>
+                            <span class="item-type">Veg</span>
+                        </div>
+                        <div class="item-price">₹120</div>
+                    </div>
+                    <p class="item-description">Fresh seasonal vegetables cooked with aromatic basmati rice and garden-fresh spices. A healthy and delicious choice.</p>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.7</span>
+                        </div>
+                        <button class="order-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-name">Egg Pulao</h3>
+                            <span class="item-type">Egg</span>
+                        </div>
+                        <div class="item-price">₹140</div>
+                    </div>
+                    <p class="item-description">Perfectly boiled eggs combined with fragrant rice and subtle spices. Simple yet incredibly satisfying.</p>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.6</span>
+                        </div>
+                        <button class="order-btn">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Biryani Section -->
+        <section class="menu-section fade-in" data-category="biryani">
+            <div class="section-header">
+                <h2 class="section-title">Premium Biryani Collection</h2>
+                <p class="section-description">Authentic Hyderabadi biryanis with layers of flavor and tradition</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-name">Hyderabadi Chicken Biryani</h3>
+                            <span class="item-type">Non-Veg</span>
+                        </div>
+                        <div class="item-price">₹250</div>
+                    </div>
+                    <p class="item-description">Authentic Hyderabadi-style biryani with marinated chicken, basmati rice, and secret blend of spices. Served with raita and shorba.</p>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.9</span>
+                        </div>
+                        <button class="order-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-name">Mutton Dum Biryani</h3>
+                            <span class="item-type">Non-Veg</span>
+                        </div>
+                        <div class="item-price">₹280</div>
+                    </div>
+                    <p class="item-description">Slow-cooked mutton biryani in traditional dum style. Each grain of rice is infused with rich flavors and aromatic spices.</p>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.8</span>
+                        </div>
+                        <button class="order-btn">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sides Section -->
+        <section class="menu-section fade-in" data-category="sides">
+            <div class="section-header">
+                <h2 class="section-title">Sides & Accompaniments</h2>
+                <p class="section-description">Perfect companions to enhance your meal experience</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-name">Raita</h3>
+                            <span class="item-type">Veg</span>
+                        </div>
+                        <div class="item-price">₹40</div>
+                    </div>
+                    <p class="item-description">Fresh yogurt mixed with cucumber, onions, and mint. A cooling accompaniment that balances the spices perfectly.</p>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.5</span>
+                        </div>
+                        <button class="order-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-name">Shorba</h3>
+                            <span class="item-type">Non-Veg</span>
+                        </div>
+                        <div class="item-price">₹60</div>
+                    </div>
+                    <p class="item-description">Traditional mutton shorba with aromatic spices and herbs. A warm, comforting soup that prepares your palate.</p>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.7</span>
+                        </div>
+                        <button class="order-btn">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Beverages Section -->
+        <section class="menu-section fade-in" data-category="beverages">
+            <div class="section-header">
+                <h2 class="section-title">Refreshing Beverages</h2>
+                <p class="section-description">Cool drinks to complement your meal</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-name">Sweet Lassi</h3>
+                            <span class="item-type">Veg</span>
+                        </div>
+                        <div class="item-price">₹50</div>
+                    </div>
+                    <p class="item-description">Creamy yogurt-based drink sweetened to perfection. A traditional favorite that cools and refreshes.</p>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.6</span>
+                        </div>
+                        <button class="order-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-name">Fresh Lime Water</h3>
+                            <span class="item-type">Veg</span>
+                        </div>
+                        <div class="item-price">₹30</div>
+                    </div>
+                    <p class="item-description">Freshly squeezed lime with a hint of mint and rock salt. A zesty drink that cleanses your palate.</p>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.4</span>
+                        </div>
+                        <button class="order-btn">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Special Offers -->
+    <section class="special-offers fade-in">
+        <h2 class="offers-title">🎉 Special Offers 🎉</h2>
+        <div class="offers-grid">
+            <div class="offer-card">
+                <div class="offer-badge">Limited Time</div>
+                <h3 style="color: #ffc107; margin-bottom: 10px;">Family Combo</h3>
+                <p style="color: #ccc; margin-bottom: 15px;">2 Chicken Pulao + 2 Raita + 2 Beverages</p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="text-decoration: line-through; color: #999;">₹460</span>
+                    <span style="font-size: 1.5rem; color: #ffc107; font-weight: bold;">₹380</span>
+                </div>
+            </div>
+            
+            <div class="offer-card">
+                <div class="offer-badge">Best Seller</div>
+                <h3 style="color: #ffc107; margin-bottom: 10px;">Biryani Special</h3>
+                <p style="color: #ccc; margin-bottom: 15px;">Any Biryani + Raita + Shorba + Dessert</p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="text-decoration: line-through; color: #999;">₹350</span>
+                    <span style="font-size: 1.5rem; color: #ffc107; font-weight: bold;">₹299</span>
+                </div>
+            </div>
+            
+            <div class="offer-card">
+                <div class="offer-badge">Weekend Only</div>
+                <h3 style="color: #ffc107; margin-bottom: 10px;">Veg Delight</h3>
+                <p style="color: #ccc; margin-bottom: 15px;">3 Veg Pulao + 3 Raita + Free Home Delivery</p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="text-decoration: line-through; color: #999;">₹420</span>
+                    <span style="font-size: 1.5rem; color: #ffc107; font-weight: bold;">₹320</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Category Filter Functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const menuSections = document.querySelectorAll('.menu-section');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const category = btn.getAttribute('data-category');
+                
+                menuSections.forEach(section => {
+                    if (category === 'all' || section.getAttribute('data-category') === category) {
+                        section.style.display = 'block';
+                        section.classList.add('fade-in');
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Scroll Animation
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            const windowHeight = window.innerHeight;
+
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Order Button Interactions
+        document.querySelectorAll('.order-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Add ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.left = '50%';
+                ripple.style.top = '50%';
+                ripple.style.width = '20px';
+                ripple.style.height = '20px';
+                ripple.style.marginLeft = '-10px';
+                ripple.style.marginTop = '-10px';
+                
+                this.style.position = 'relative';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+                
+                // Show order confirmation
+                const itemName = this.closest('.menu-item').querySelector('.item-name').textContent;
+                showOrderConfirmation(itemName);
+            });
+        });
+        
+        // Order Confirmation Function
+        function showOrderConfirmation(itemName) {
+            const confirmation = document.createElement('div');
+            confirmation.innerHTML = `
+                <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                           background: linear-gradient(135deg, #ff8a65, #ffc107); color: white; 
+                           padding: 20px 40px; border-radius: 15px; z-index: 1000; 
+                           box-shadow: 0 20px 40px rgba(0,0,0,0.3); text-align: center;
+                           animation: confirmationPop 0.5s ease;">
+                    <h3 style="margin-bottom: 10px;">Order Added! 🎉</h3>
+                    <p>${itemName} has been added to your cart</p>
+                    <button onclick="this.parentElement.remove()" 
+                            style="margin-top: 15px; padding: 8px 20px; background: rgba(255,255,255,0.2); 
+                                   border: none; border-radius: 20px; color: white; cursor: pointer;">
+                        Continue Shopping
+                    </button>
+                </div>
+                <style>
+                    @keyframes confirmationPop {
+                        0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+                        100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+                    }
+                </style>
+            `;
+            document.body.appendChild(confirmation);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                if (confirmation.parentNode) {
+                    confirmation.remove();
+                }
+            }, 3000);
+        }
+
+        // Smooth Scrolling for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add ripple animation to CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            animateOnScroll();
+            window.addEventListener('scroll', animateOnScroll);
+        });
+
+        
+document.addEventListener('DOMContentLoaded', function() {
+// --- Cart System ---
+const cart = {};
+const cartIcon = document.getElementById('cart-icon');
+const cartSidebar = document.getElementById('cart-sidebar');
+const cartItemsContainer = document.getElementById('cart-items');
+const cartCount = document.getElementById('cart-count');
+const cartTotal = document.getElementById('cart-total');
+
+cartIcon.addEventListener('click', () => {
+    cartSidebar.style.right = cartSidebar.style.right === '0px' ? '-100%' : '0';
+});
+
+function addToCart(itemName, price) {
+    if (cart[itemName]) {
+        cart[itemName].qty++;
+    } else {
+        cart[itemName] = { price, qty: 1 };
+    }
+    updateCartUI();
+}
+
+function updateCartUI() {
+    cartItemsContainer.innerHTML = '';
+    let total = 0;
+    let count = 0;
+    for (const [name, item] of Object.entries(cart)) {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+        count += item.qty;
+        const div = document.createElement('div');
+        div.style.marginBottom = '15px';
+        div.innerHTML = `
+            <div style="display: flex; justify-content: space-between;">
+                <span>${name} x${item.qty}</span>
+                <span>₹${itemTotal}</span>
+            </div>
+        `;
+        cartItemsContainer.appendChild(div);
+    }
+    cartTotal.textContent = total;
+    cartCount.textContent = count;
+}
+
+// Override existing order button click to add to cart
+document.querySelectorAll('.order-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const itemElement = this.closest('.menu-item');
+        const itemName = itemElement.querySelector('.item-name').textContent;
+        const priceText = itemElement.querySelector('.item-price').textContent.replace(/[₹\s]/g, '');
+        const price = parseFloat(priceText);
+        addToCart(itemName, price);
+    });
+});
+
+
+
+});
+// Menu Item Hover Effects
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Dynamic Price Highlighting
+        document.querySelectorAll('.item-price').forEach(price => {
+            price.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1)';
+                this.style.textShadow = '0 0 20px rgba(255, 193, 7, 0.8)';
+            });
+            
+            price.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.textShadow = '0 0 10px rgba(255, 193, 7, 0.3)';
+            });
+        });
+    </script>
+
+<!-- Floating Cart Button -->
+<div id="cart-icon" style="position: fixed; top: 30px; right: 30px; background: #ffc107; color: #000; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; z-index: 999;">
+    🛒<span id="cart-count" style="font-size: 0.8rem; margin-left: 3px;">0</span>
+</div>
+
+<!-- Cart Sidebar -->
+<div id="cart-sidebar" style="position: fixed; top: 0; right: -100%; width: 300px; height: 100%; background: #1a1a1a; color: #fff; padding: 20px; box-shadow: -4px 0 10px rgba(0,0,0,0.5); z-index: 998; transition: right 0.3s ease;">
+    <h3 style="color: #ffc107;">Your Cart</h3>
+    <div id="cart-items" style="margin-top: 20px;"></div>
+    <hr style="border: 1px solid #444; margin: 20px 0;">
+    <div><strong>Total: ₹<span id="cart-total">0</span></strong></div>
+    <button style="margin-top: 20px; padding: 10px 20px; background: #ffc107; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">Checkout</button>
+</div>
+
+</body>
+</html>
